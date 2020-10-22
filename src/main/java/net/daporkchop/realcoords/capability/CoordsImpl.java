@@ -22,6 +22,7 @@ package net.daporkchop.realcoords.capability;
 
 import net.daporkchop.realcoords.CoordType;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.util.text.TextComponentString;
 
 import java.util.BitSet;
 import java.util.function.Consumer;
@@ -45,6 +46,7 @@ public class CoordsImpl extends BitSet implements ICoords {
             } else {
                 type.remove(player);
             }
+            player.sendMessage(new TextComponentString((enabled ? "§aEnabled" : "§cDisabled") + ' ' + type.name().toLowerCase() + " coordinate display."));
         }
     }
 
