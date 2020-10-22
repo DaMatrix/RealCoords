@@ -23,6 +23,9 @@ package net.daporkchop.realcoords;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.text.TextComponentString;
 
+import java.util.Arrays;
+import java.util.stream.Stream;
+
 /**
  * @author DaPorkchop_
  */
@@ -48,6 +51,10 @@ public enum CoordType {
 
     public static CoordType fromOrdinal(int ordinal) {
         return VALUES[ordinal];
+    }
+
+    public static Stream<CoordType> stream() {
+        return Arrays.stream(VALUES);
     }
 
     public abstract void add(EntityPlayerMP player);

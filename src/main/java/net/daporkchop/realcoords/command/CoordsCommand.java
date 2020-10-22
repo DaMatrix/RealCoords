@@ -30,11 +30,16 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.server.permission.PermissionAPI;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author DaPorkchop_
@@ -71,9 +76,19 @@ public class CoordsCommand extends CommandBase {
         if (!(entity instanceof EntityPlayerMP)) {
             sender.sendMessage(new TextComponentString("§cYou must be a player to use this command!"));
             return;
+        } else if (args.length < 1) {
+            sender.sendMessage(new TextComponentString("§cMust give a coordinate display mode!"));
+            return;
+        }
+        CoordType type;
+        try {
+            type = CoordType.valueOf(args[0].toUpperCase());
+        } catch (IllegalArgumentException e) {
+            sender.sendMessage(new TextComponentString("§cUnknown coordinate display mode: " + args[0]));
+            return;
         }
         ICoords coords = entity.getCapability(RealCoords.COORDS_CAPABILITY, null);
-        coords.setEnabled(CoordType.POPUP, !coords.isEnabled(CoordType.POPUP), (EntityPlayerMP) entity);
+        coords.setEnabled(type, !coords.isEnabled(type), (EntityPlayerMP) entity);
     }
 
     @Override
@@ -83,5 +98,17 @@ public class CoordsCommand extends CommandBase {
         } else {
             return super.checkPermission(server, sender);
         }
+    }
+
+    @Override
+    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
+        if (args.length > 1) {
+            return Collections.emptyList();
+        }
+        Stream<String> stream = CoordType.stream().map(CoordType::name).map(String::toLowerCase);
+        if (args.length == 1) {
+            stream = stream.filter(s -> s.startsWith(args[0]));
+        }
+        return stream.collect(Collectors.toList());
     }
 }
