@@ -1,0 +1,18 @@
+[
+  {
+    "modid": "realcoords",
+    "name": "RealCoords",
+    "description": "Simple coordinate display for Cubic Chunks",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "https://github.com/DaMatrix/RealCoords",
+    "updateUrl": "https://raw.githubusercontent.com/DaMatrix/RealCoords/master/update.json",
+    "authorList": [
+      "DaPorkchop_"
+    ],
+    "credits": "Barteks2x, for making Cubic Chunks",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]

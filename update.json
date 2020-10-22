@@ -1,0 +1,10 @@
+{
+  "homepage": "https://github.com/DaMatrix/RealCoords",
+  "promos": {
+    "1.12.2-latest": "0.0.1",
+    "1.12.2-recommended": "0.0.1"
+  },
+  "1.12.2": {
+    "0.0.1": "Initial release."
+  }
+}
