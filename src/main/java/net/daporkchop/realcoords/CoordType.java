@@ -20,7 +20,10 @@
 
 package net.daporkchop.realcoords;
 
+import io.netty.buffer.Unpooled;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.play.server.SPacketCustomPayload;
 import net.minecraft.util.text.TextComponentString;
 
 import java.util.Arrays;
@@ -42,8 +45,26 @@ public enum CoordType {
 
         @Override
         public void update(EntityPlayerMP player) {
-            String msg = String.format(RCFormatting.popup, player.posX, player.posY, player.posZ);
-            player.sendStatusMessage(new TextComponentString(msg), true);
+            player.sendStatusMessage(new TextComponentString(String.format(RCFormatting.popup, player.posX, player.posY, player.posZ)), true);
+        }
+    },
+    SERVERBRAND {
+        @Override
+        public void add(EntityPlayerMP player) {
+        }
+
+        @Override
+        public void remove(EntityPlayerMP player) {
+            this.send(player, player.server.getServerModName());
+        }
+
+        @Override
+        public void update(EntityPlayerMP player) {
+            this.send(player, String.format(RCFormatting.serverBrand, player.posX, player.posY, player.posZ));
+        }
+
+        private void send(EntityPlayerMP player, String brand) {
+            player.connection.sendPacket(new SPacketCustomPayload("MC|Brand", new PacketBuffer(Unpooled.buffer()).writeString(brand)));
         }
     };
 

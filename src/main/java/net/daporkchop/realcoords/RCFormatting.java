@@ -32,4 +32,5 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Config(modid = RealCoords.MODID, category = "formatting")
 public class RCFormatting {
     public static String popup = "x=%.2f, y=%.2f, z=%.2f";
+    public static String serverBrand = "x=%.2f, y=%.2f, z=%.2f";
 }
