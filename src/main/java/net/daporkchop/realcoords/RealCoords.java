@@ -27,6 +27,7 @@ import net.daporkchop.realcoords.command.CoordsCommand;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -42,6 +43,8 @@ import org.apache.logging.log4j.Logger;
         acceptableRemoteVersions = "*")
 public class RealCoords {
     public static final String MODID = "realcoords";
+
+    public static final boolean CC = Loader.isModLoaded("cubicchunks");
 
     public static Logger LOGGER;
 

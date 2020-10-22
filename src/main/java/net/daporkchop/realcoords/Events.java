@@ -20,6 +20,8 @@
 
 package net.daporkchop.realcoords;
 
+import io.github.opencubicchunks.cubicchunks.api.world.ICubicWorld;
+import io.github.opencubicchunks.cubicchunks.core.asm.mixin.ICubicWorldInternal;
 import net.daporkchop.realcoords.capability.CoordsProvider;
 import net.daporkchop.realcoords.capability.ICoords;
 import net.minecraft.entity.Entity;
@@ -41,8 +43,13 @@ public class Events {
             return;
         }
 
-        FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getPlayers().forEach(player ->
-                player.getCapability(RealCoords.COORDS_CAPABILITY, null).forEachEnabled(type -> type.update(player)));
+        FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getPlayers().forEach(player -> {
+            if (!RealCoords.CC
+                || !RCConfig.vanillaClientsOnly
+                || (((ICubicWorld) player.world).isCubicWorld() && !((ICubicWorldInternal.Server) player.world).getVanillaNetworkHandler().hasCubicChunks(player))) {
+                player.getCapability(RealCoords.COORDS_CAPABILITY, null).forEachEnabled(type -> type.update(player));
+            }
+        });
     }
 
     @SubscribeEvent

@@ -32,6 +32,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Config(modid = RealCoords.MODID)
 @Mod.EventBusSubscriber(modid = RealCoords.MODID)
 public class RCConfig {
+    @Config.Comment({
+            "Makes the real coordinates only visible for players without Cubic Chunks.",
+            "Obviously, this requires Cubic Chunks to be installed on the server in order to work."
+    })
+    public static boolean vanillaClientsOnly = true;
+
     @SubscribeEvent
     public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
         if (event.getModID().equals(RealCoords.MODID)) {
