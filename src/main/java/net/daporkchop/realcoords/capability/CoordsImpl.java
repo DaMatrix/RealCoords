@@ -1,7 +1,7 @@
 /*
  * Adapted from The MIT License (MIT)
  *
- * Copyright (c) 2020-2020 DaPorkchop_
+ * Copyright (c) 2020-2021 DaPorkchop_
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
  * files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
@@ -21,6 +21,7 @@
 package net.daporkchop.realcoords.capability;
 
 import net.daporkchop.realcoords.CoordType;
+import net.daporkchop.realcoords.RCConfig;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.text.TextComponentString;
 
@@ -31,6 +32,15 @@ import java.util.function.Consumer;
  * @author DaPorkchop_
  */
 public class CoordsImpl extends BitSet implements ICoords {
+    public CoordsImpl() {
+        for (String type : RCConfig.defaultTypes) {
+            try {
+                this.set(CoordType.valueOf(type.toUpperCase()).ordinal());
+            } catch (IllegalArgumentException ignored) {
+            }
+        }
+    }
+
     @Override
     public boolean isEnabled(CoordType type) {
         return this.get(type.ordinal());

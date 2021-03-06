@@ -1,7 +1,7 @@
 /*
  * Adapted from The MIT License (MIT)
  *
- * Copyright (c) 2020-2020 DaPorkchop_
+ * Copyright (c) 2020-2021 DaPorkchop_
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
  * files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
@@ -37,6 +37,11 @@ public class RCConfig {
             "Obviously, this requires Cubic Chunks to be installed on the server in order to work."
     })
     public static boolean vanillaClientsOnly = true;
+
+    @Config.Comment({
+            "The coordinate display types that will be enabled by default."
+    })
+    public static String[] defaultTypes = new String[0];
 
     @SubscribeEvent
     public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
